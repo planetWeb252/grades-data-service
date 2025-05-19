@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.Generated;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -19,4 +21,5 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String courseCode;
     private String courseName;
+    private List <Grade> grades;
 }

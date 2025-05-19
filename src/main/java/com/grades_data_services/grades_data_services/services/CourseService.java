@@ -20,12 +20,21 @@ public class CourseService {
     public ResponseEntity<?> getGradesOnCourseCode(String courseCode) {
         // Check if the course exists
         if (courseRepository.findByCourseCode(courseCode) == null) {
-            return ResponseEntity.status(404).body("Course with code " + courseCode + " not found");
+            // Return 404 if the course does not exist
+            return status(404).body("Course not found");
         }
-        // Get the grades for the course
-        Optional<List<Course>> grades = courseRepository.findGradesByCourseCode(courseCode);
-        // Return the grades
-        return ResponseEntity.ok(grades);
+        Optional<List<Course>> optionalGrades=courseRepository.findGradesByCourseCode(courseCode);
+        if (optionalGrades.isPresent()) {
+            // Get the course
+            Course course = courseRepository.findByCourseCode(courseCode);
+            // Get the grades
+            List<Course> grades = courseRepository.findGradesByCourseCode(courseCode).get();
+            // Return the grades
+            return status(200).body(grades);
+        } else {
+            // Return 404 if the course does not exist
+            return status(404).body("Course not found");
+        }
 
     }
 
