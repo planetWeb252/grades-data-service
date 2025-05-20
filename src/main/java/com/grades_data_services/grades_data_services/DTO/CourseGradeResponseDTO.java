@@ -10,13 +10,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CourseGradeDTO {
+public class CourseGradeResponseDTO {
     private String courseCode;
     private String courseName;
     private List<Grade> grade;
     private Long idStudent;
 
-    public CourseGradeDTO(String courseCode, String courseName, List<Grade> grade) {
+    public CourseGradeResponseDTO(String courseCode, String courseName, List<Grade> grade) {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.grade = grade;

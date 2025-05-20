@@ -1,13 +1,13 @@
 package com.grades_data_services.grades_data_services.controller;
 
+import com.grades_data_services.grades_data_services.DTO.CreateCourseRequestDTO;
+import com.grades_data_services.grades_data_services.DTO.GradeRequestDTO;
+import com.grades_data_services.grades_data_services.models.Course;
 import com.grades_data_services.grades_data_services.repository.CourseRepository;
 import com.grades_data_services.grades_data_services.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/course")
@@ -31,5 +31,11 @@ public class CourseController {
     @GetMapping("/grades/{courseCode}")
     public ResponseEntity<?> getGradesByCourseCode(@PathVariable String courseCode) {
        return courseService.getGradesOnCourseCode(courseCode);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createdCourse(@RequestBody CreateCourseRequestDTO dto) {
+        return courseService.createdCourse(dto);
+
     }
 }
