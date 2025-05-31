@@ -46,6 +46,7 @@ public class CourseService {
         Course newCourse = new Course();
         newCourse.setCourseCode(dto.getCourseCode());
         newCourse.setCourseName(dto.getCourseName());
+        courseRepository.save(newCourse);
         return ResponseEntity.status(201).body("Course created successfully");
     }
 }

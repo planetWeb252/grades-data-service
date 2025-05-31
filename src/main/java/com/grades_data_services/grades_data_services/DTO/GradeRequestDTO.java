@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GradeRequestDTO {
     private String courseCode;
-    private String courseName;
     private double grade;
     private Long studentId;
 }

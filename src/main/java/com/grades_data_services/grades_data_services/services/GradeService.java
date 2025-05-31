@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,8 +30,8 @@ public class GradeService {
 
         // call  info-student service to check if student exist
 
-        String url="http://student-info-service/api/students/" + dto.getStudentId();
-        ResponseEntity<StudenDtoCallMicro> response = restTemplate.getForEntity(url, StudenDtoCallMicro.class);
+        String url="http://student-info-service/api/student/{id}";
+        ResponseEntity<StudenDtoCallMicro> response = restTemplate.getForEntity(url, StudenDtoCallMicro.class, dto.getStudentId());
         if(!response.getStatusCode().is2xxSuccessful()|| response.getBody()==null){
             throw new RuntimeException("Student not found");
         }
@@ -45,5 +46,14 @@ public class GradeService {
         grade.setIdStudent(dto.getStudentId());
         grade.setCourse(course);
         return gradeRepository.save(grade);
+    }
+
+    public ResponseEntity<?> getGradesOnCourseCode(String coursecode) {
+        Optional<List<Course>> course = courseRepository.findCouseByCourseCode(coursecode);
+        if (course.isEmpty()) {
+            return ResponseEntity.status(404).body("Course not found");
+        }
+        // get all grades based on the course code
+        return ResponseEntity.ok(course);
     }
 }

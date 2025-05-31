@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/course")
 public class CourseController {
@@ -37,5 +40,15 @@ public class CourseController {
     public ResponseEntity<?> createdCourse(@RequestBody CreateCourseRequestDTO dto) {
         return courseService.createdCourse(dto);
 
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllCourses() {
+        List<Course>course=courseRepository.findAll();
+        if(!course.isEmpty()){
+            return ResponseEntity.ok(course);
+        } else {
+            return ResponseEntity.status(404).body("No courses found");
+        }
     }
 }

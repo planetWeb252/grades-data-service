@@ -28,4 +28,8 @@ public class GradeController {
         Grade savedGrade=gradeService.createdGrade(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedGrade);
     }
+    @GetMapping("/{coursecode}")
+    public ResponseEntity<?> getGradesByCourseCode(@PathVariable String coursecode) {
+        return gradeService.getGradesOnCourseCode(coursecode);
+    }
 }
